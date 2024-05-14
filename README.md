@@ -94,7 +94,7 @@ Welcome to the Goal-Setting Web Application repository! This project is designed
 
 ## Licensing
 
-This project is licensed under the GNU Affero General Public License v3.0. For commercial use, please contact [your contact information] for licensing options.
+This project is licensed under the GNU Affero General Public License v3.0. For commercial use, please contact [Phibeon@yahoo.com] for licensing options.
 
 ## Contributing
 
@@ -114,4 +114,13 @@ We welcome contributions! To get started, follow these steps:
 ---
 
 Join us in helping individuals achieve their goals through structured planning and consistent action. Explore the code, contribute to the project, and make a difference!
+
+
+## Contact
+
+For inquiries or further information about this project, please contact:
+
+- **Email**: phibeon@yahoo.com 
+- **Twitter/X**: @phybeon
+- **LinkedIn**: linkedin.com/in/phyb
 
