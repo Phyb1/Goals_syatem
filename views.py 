@@ -1,0 +1,89 @@
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Goal, Step, Progress, Reward
+from .forms import GoalForm, StepForm, ProgressForm, RewardForm
+
+class GoalListView(ListView):
+    model = Goal
+    template_name = 'goals/goal_list.html'
+    context_object_name = 'goals'
+
+    def get_queryset(self):
+        return Goal.objects.filter(user=self.request.user)
+
+class GoalDetailView(DetailView):
+    model = Goal
+    template_name = 'goals/goal_detail.html'
+    context_object_name = 'goal'
+
+class GoalCreateView(CreateView):
+    model = Goal
+    form_class = GoalForm
+    template_name = 'goals/goal_form.html'
+    success_url = reverse_lazy('goal_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class GoalUpdateView(UpdateView):
+    model = Goal
+    form_class = GoalForm
+    template_name = 'goals/goal_form.html'
+    success_url = reverse_lazy('goal_list')
+
+class GoalDeleteView(DeleteView):
+    model = Goal
+    template_name = 'goals/goal_confirm_delete.html'
+    success_url = reverse_lazy('goal_list')
+
+class StepCreateView(CreateView):
+    model = Step
+    form_class = StepForm
+    template_name = 'goals/step_form.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('goal_detail', kwargs={'pk': self.object.goal.pk})
+
+    def form_valid(self, form):
+        form.instance.goal = Goal.objects.get(pk=self.kwargs['goal_id'])
+        return super().form_valid(form)
+
+class StepUpdateView(UpdateView):
+    model = Step
+    form_class = StepForm
+    template_name = 'goals/step_form.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('goal_detail', kwargs={'pk': self.object.goal.pk})
+
+class StepDeleteView(DeleteView):
+    model = Step
+    template_name = 'goals/step_confirm_delete.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('goal_detail', kwargs={'pk': self.object.goal.pk})
+
+class ProgressCreateView(CreateView):
+    model = Progress
+    form_class = ProgressForm
+    template_name = 'goals/progress_form.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('goal_detail', kwargs={'pk': self.object.goal.pk})
+
+    def form_valid(self, form):
+        form.instance.goal = Goal.objects.get(pk=self.kwargs['goal_id'])
+        return super().form_valid(form)
+
+class RewardCreateView(CreateView):
+    model = Reward
+    form_class = RewardForm
+    template_name = 'goals/reward_form.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('goal_detail', kwargs={'pk': self.object.goal.pk})
+
+    def form_valid(self, form):
+        form.instance.goal = Goal.objects.get(pk=self.kwargs['goal_id'])
+        return super().form_valid(form)
