@@ -21,15 +21,12 @@
 
 <div class="dashboard-section">
     <h3>Progress Tracking</h3>
-    <p>Daily Progress Entries:</p>
-    <ul>
-        {% for date, count in daily_progress %}
-            <li>{{ date }}: {{ count }}</li>
-        {% endfor %}
-    </ul>
-    <h4>Reflection Summary</h4>
+    <canvas id="progressChart" width="400" height="200"></canvas>
+</div>
+
+<div class="dashboard-section">
+    <h3>Reflection Summary</h3>
     <div class="word-cloud">
-        <!-- Visualization of common reflection themes (e.g., word cloud) -->
         {% for word, frequency in reflection_summary %}
             <span style="font-size: {{ frequency }}%;">{{ word }}</span>
         {% endfor %}
@@ -46,4 +43,10 @@
     <h3>SMART Goals Analysis</h3>
     <p>Percentage of SMART Goals: {{ smart_goals_percentage }}%</p>
 </div>
+
+<script>
+    const dailyProgress = {{ daily_progress|safe }};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
