@@ -59,7 +59,7 @@ Welcome to the Goal-Setting Web Application repository! This project is designed
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/goals-webapp.git
+    git clone https://github.com/Phyb1/goals-webapp.git
     cd goals-webapp
     ```
 
