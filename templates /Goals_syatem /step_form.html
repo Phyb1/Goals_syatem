@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ view.object.pk|yesno:"Edit Step,Create Step" }}{% endblock %}
+
+{% block content %}
+<h2>{{ view.object.pk|yesno:"Edit Step,Create Step" }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}
