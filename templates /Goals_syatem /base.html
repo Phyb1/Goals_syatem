@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Goals App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>My Goals App</h1>
+        <nav>
+            <a href="{% url 'goal_list' %}">Home</a>
+            <a href="{% url 'goal_create' %}">Create Goal</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 My Goals App</p>
+    </footer>
+</body>
+</html>
