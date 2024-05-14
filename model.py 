@@ -1,0 +1,55 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+#user defined goals 
+class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    is_specific = models.BooleanField(default=False)
+    is_measurable = models.BooleanField(default=False)
+    is_attainable = models.BooleanField(default=False)
+    is_relevant = models.BooleanField(default=False)
+    is_time_bound = models.BooleanField(default=False)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+#a specific step or milestone within a goal 
+class Step(models.Model):
+    goal = models.ForeignKey(Goal, related_name='steps', on_delete=models.CASCADE)
+    description = models.TextField()
+    is_completed = models.BooleanField(default=False)
+    due_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.description
+
+#The progress tracking 0f each goal
+class Progress(models.Model):
+    goal = models.ForeignKey(Goal, related_name='progress', on_delete=models.CASCADE)
+    step = models.ForeignKey(Step, related_name='progress', on_delete=models.CASCADE, null=True, blank=True)
+    date = models.DateField()
+    progress_made = models.TextField()
+    reflection = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Progress on {self.date}"
+
+
+#a reward associated with the step or goal
+class Reward(models.Model):
+    goal = models.ForeignKey(Goal, related_name='rewards', on_delete=models.CASCADE)
+    description = models.TextField()
+    is_earned = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.description
