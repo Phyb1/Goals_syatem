@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Goal Detail{% endblock %}
+
+{% block content %}
+<h2>{{ goal.title }}</h2>
+<p>{{ goal.description }}</p>
+
+<h3>Steps</h3>
+<ul>
+    {% for step in goal.steps.all %}
+        <li>{{ step.title }} - <a href="{% url 'step_update' step.pk %}">Edit</a> | <a href="{% url 'step_delete' step.pk %}">Delete</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'step_create' goal.pk %}">Add Step</a>
+
+<h3>Progress</h3>
+<ul>
+    {% for progress in goal.progress_set.all %}
+        <li>{{ progress.detail }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'progress_create' goal.pk %}">Add Progress</a>
+
+<h3>Rewards</h3>
+<ul>
+    {% for reward in goal.rewards.all %}
+        <li>{{ reward.title }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'reward_create' goal.pk %}">Add Reward</a>
+
+<a href="{% url 'goal_update' goal.pk %}">Edit Goal</a> | 
+<a href="{% url 'goal_delete' goal.pk %}">Delete Goal</a>
+{% endblock %}
+ 
