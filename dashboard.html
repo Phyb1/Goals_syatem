@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="dashboard-section">
+    <h3>Goals Overview</h3>
+    <p>Total Goals Created: {{ total_goals }}</p>
+    <p>Active Goals: {{ active_goals }}</p>
+    <p>Completed Goals: {{ completed_goals }}</p>
+</div>
+
+<div class="dashboard-section">
+    <h3>Steps and Milestones</h3>
+    <p>Total Steps Created: {{ total_steps }}</p>
+    <p>Completed Steps: {{ completed_steps }}</p>
+    <p>Pending Steps: {{ pending_steps }}</p>
+</div>
+
+<div class="dashboard-section">
+    <h3>Progress Tracking</h3>
+    <p>Daily Progress Entries:</p>
+    <ul>
+        {% for date, count in daily_progress %}
+            <li>{{ date }}: {{ count }}</li>
+        {% endfor %}
+    </ul>
+    <h4>Reflection Summary</h4>
+    <div class="word-cloud">
+        <!-- Visualization of common reflection themes (e.g., word cloud) -->
+        {% for word, frequency in reflection_summary %}
+            <span style="font-size: {{ frequency }}%;">{{ word }}</span>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="dashboard-section">
+    <h3>Rewards</h3>
+    <p>Rewards Earned: {{ rewards_earned }}</p>
+    <p>Pending Rewards: {{ pending_rewards }}</p>
+</div>
+
+<div class="dashboard-section">
+    <h3>SMART Goals Analysis</h3>
+    <p>Percentage of SMART Goals: {{ smart_goals_percentage }}%</p>
+</div>
+{% endblock %}
